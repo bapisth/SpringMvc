@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages="com.hemendra.learning.annotation.controller")
+@ComponentScan(basePackages={"com.hemendra.learning.annotation.controller", "com.hemendra.learning.annotation.restcontroller"})
 public class AppConfig extends WebMvcConfigurerAdapter {
 	
 	@Bean
