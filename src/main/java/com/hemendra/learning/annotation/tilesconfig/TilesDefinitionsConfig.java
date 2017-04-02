@@ -9,13 +9,20 @@ import org.apache.tiles.definition.DefinitionsFactory;
 import org.apache.tiles.request.Request;
 
 public class TilesDefinitionsConfig implements DefinitionsFactory{
+	
 
 	private static final Map<String, Definition> tilesDefinitions = new HashMap<String,Definition>();
     private static final Attribute BASE_TEMPLATE = new Attribute("/WEB-INF/views/layout/defaultLayout.jsp");
 
+    @Override
     public Definition getDefinition(String name, Request tilesContext) {
-        System.out.println("3");
-        return tilesDefinitions.get(name);
+    	if(tilesDefinitions==null)
+    		addDefinitions();
+    	
+    	System.out.println(tilesDefinitions.size());
+        Definition definition = tilesDefinitions.get(name);
+        System.out.println("Definition Name: "+definition);
+		return definition;
     }
 
     /**
@@ -25,6 +32,7 @@ public class TilesDefinitionsConfig implements DefinitionsFactory{
      *
      * <code>Adds default layout definitions</code>
      */
+    
     private static void addDefaultLayoutDef(String name, String title, String body) {
         Map<String, Attribute> attributes = new HashMap<String,Attribute>();
 
@@ -40,9 +48,10 @@ public class TilesDefinitionsConfig implements DefinitionsFactory{
     /**
      * <code>Add Apache tiles definitions</code>
      */
+    
     public static void addDefinitions(){
 
-        addDefaultLayoutDef("welcome", "welcome", "/WEB-INF/views/layout/welcome.jsp");
+        addDefaultLayoutDef("home", "home", "/WEB-INF/views/home.jsp");
         //addDefaultLayoutDef("personList", "viewPerson", "/WEB-INF/views/layout/personList.jsp");
 
     }

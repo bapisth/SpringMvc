@@ -6,18 +6,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
-import com.hemendra.learning.annotation.tilesconfig.TilesDefinitionsConfig;
-
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages={"com.hemendra.learning.annotation.controller", "com.hemendra.learning.annotation.restcontroller", "com.hemendra.learning"})
+//, "com.hemendra.learning"
 public class AppConfig extends WebMvcConfigurerAdapter {
 	
 	@Bean
@@ -37,13 +39,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public TilesConfigurer getTilesConfigurer(){
 		TilesConfigurer configurer = new TilesConfigurer();
 		configurer.setCheckRefresh(true);
-		//configurer.setDefinitions(new String[]{"/WEB-INF/views/**/tiles.xml"}); // It is required when you want to use a 'tiles.xml' file for tile configuration
+		configurer.setDefinitions(new String[]{"/WEB-INF/views/tiles/tiles.xml"}); // It is required when you want to use a 'tiles.xml' file for tile configuration
 		//When you specify '/WEB-INF/views/**/tiles.xml', you are telling the TilesConfigurer to look 
 		//for all tiles definitions recursively under the /Web-INF/views directory.
 		
 		
 		//Tiles Java based definition configuratin
-		configurer.setDefinitionsFactoryClass(TilesDefinitionsConfig.class);
+		//configurer.setDefinitionsFactoryClass(TilesDefinitionsConfig.class);
 		
 		return configurer;
 	}
@@ -60,6 +62,24 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable(); // Says that Spring will not handle the static contents like js, html or css files
 	}
+	
+	/**
+     * Configure ViewResolvers to deliver preferred views.
+     *//*
+	@Override
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+		TilesViewResolver viewResolver = new TilesViewResolver();
+		registry.viewResolver(viewResolver);
+	}
+	
+	*//**
+     * Configure ResourceHandlers to serve static resources like CSS/ Javascript etc...
+     *//*
+	
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+    }*/
 	
 	
 

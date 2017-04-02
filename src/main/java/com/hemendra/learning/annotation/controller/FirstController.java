@@ -4,12 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value="/first-cntrl")
 public class FirstController {
-	@RequestMapping(value = "/data")
+	@RequestMapping(value="/products")
 	public String firstControlHandler(){
-		return "home";
+		return "products";
 	}
-	
-
 }
